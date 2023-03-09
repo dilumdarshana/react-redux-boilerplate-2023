@@ -6,11 +6,21 @@ import { getUsersFetch } from '../../reducers/userSlice';
 const UserView = () => {
   const dispatch = useDispatch();
   const users = useSelector((state) => state.user.users);
+  const newUser = useSelector((state) => state.user.userData);
 
   useEffect(() => {
     dispatch(getUsersFetch());
-  }, [dispatch]);
+  }, []);
+  const usersAll = newUser ? { ...users, newUser } : users;
 
+  const rows = Object.keys(usersAll).map((key) => {
+    return (
+      <tr key={usersAll[key].id}>
+        <td>{usersAll[key].name}</td>
+        <td>{usersAll[key].email}</td>
+      </tr>
+    );
+  });
 
   return (
       <table className="shadow-lg bg-white border-separate">
@@ -21,12 +31,7 @@ const UserView = () => {
           </tr>
         </thead>
         <tbody>
-          { users.forEach((user) =>
-              <tr key={user.idd}>
-                <td>{user.name}</td>
-                <td>{user.email}</td>
-              </tr>
-          )}
+          {rows}
         </tbody>
       </table>
   )

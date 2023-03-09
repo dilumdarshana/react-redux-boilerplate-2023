@@ -16,10 +16,21 @@ export const userSlice = createSlice({
         },
         getUsersFail: (state) => {
             state.isLoading = false
-        }
+        },
+        addUser: (state, action) => {
+            state.userData = action.payload
+        },
+        addUserSuccess: () => {
+
+        },
     }
 });
 
-export const { getUsersFetch, getUsersSuccess, getUsersFail } = userSlice.actions;
+export const {
+    getUsersFetch,
+    getUsersSuccess,
+    getUsersFail,
+    addUser,
+} = userSlice.actions;
 
 export default userSlice.reducer;

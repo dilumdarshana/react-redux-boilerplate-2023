@@ -1,9 +1,15 @@
 import React, { useRef } from 'react';
 import { useDispatch } from 'react-redux';
-// import { changeUser } from '../../reducers/userSlice';
+import { addUser } from '../../reducers/userSlice';
 
 const UserAdd = ({ handleOnChange }) => {
     const dispatch = useDispatch();
+    const name = useRef();
+    const email = useRef();
+
+    const submitForm = () => {
+        dispatch(addUser({ name: name.current.value, email: email.current.value, id: Date.now().toString() }));
+    };
 
     return (
         <form className="w-full max-w-sm">
@@ -14,7 +20,7 @@ const UserAdd = ({ handleOnChange }) => {
                     </label>
                 </div>
                 <div className="md:w-2/3">
-                    <input className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-full-name" type="text" placeholder="Jane Doe" />
+                    <input ref={name} className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-full-name" type="text" placeholder="Jane Doe" />
                 </div>
             </div>
             <div className="md:flex md:items-center mb-6">
@@ -24,13 +30,13 @@ const UserAdd = ({ handleOnChange }) => {
                     </label>
                 </div>
                 <div className="md:w-2/3">
-                    <input className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-password" type="text" placeholder="jane@gmail.com" />
+                    <input ref={email} className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-password" type="text" placeholder="jane@gmail.com" />
                 </div>
             </div>
             <div className="md:flex md:items-center">
                 <div className="md:w-1/3"></div>
                 <div className="md:w-2/3">
-                    <button className="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="button">
+                    <button onClick={submitForm} className="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="button">
                         Add
                     </button>
                 </div>
